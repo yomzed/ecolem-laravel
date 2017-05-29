@@ -14,6 +14,11 @@ class User extends Authenticatable
         return $this->hasMany(Robot::class);
     }
 
+    public function isAdmin()
+    {
+        return $this->role === "administrator";
+    }
+
     /**
      * The attributes that are mass assignable.
      *

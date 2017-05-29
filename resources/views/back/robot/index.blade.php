@@ -19,6 +19,7 @@
 				<th>Status</th>
 				<th>Category</th>
 				<th>Tags</th>
+				<th>Author</th>
 				<th>Created</th>
 				<th>Actions</th>
 			</thead>
@@ -39,14 +40,22 @@
 								No tags
 							@endforelse
 						</td>
+						<td>{{$robot->user->name}}</td>
 						<td>{{$robot->created_at->diffForHumans()}}</td>
 						<td>
-							<a class="green-text text-accent-3" href="{{route('robot.edit', $robot->id)}}"><i class="material-icons">edit</i></a>
-							<form class="destroy" method="post" action="{{route('robot.destroy', $robot->id)}}" style="display: inline-block">
-								<a class="red-text text-darken-1" style="cursor: pointer;"><i class="material-icons">clear</i></a>
-								{{ method_field('DELETE') }} {{-- Défini la méthode d'envoi --}}
-								{{csrf_field()}} {{-- Token de protection formulaire CSRF (??) --}}
-							</form>
+							@can('update', $robot)
+								<a class="green-text text-accent-3" href="{{route('robot.edit', $robot->id)}}"><i class="material-icons">edit</i></a>
+								<form class="destroy" method="post" action="{{route('robot.destroy', $robot->id)}}" style="display: inline-block">
+									<a class="red-text text-darken-1" style="cursor: pointer;"><i class="material-icons">clear</i></a>
+									{{ method_field('DELETE') }} {{-- Défini la méthode d'envoi --}}
+									{{csrf_field()}} {{-- Token de protection formulaire CSRF (??) --}}
+								</form>
+							@else
+								<span class="grey-text">
+									<i class="material-icons">edit</i>
+									<i class="material-icons">clear</i>
+								</span>
+							@endcan
 						</td>
 					</tr>
 				@endforeach

@@ -45,6 +45,7 @@
 		
 		<form class="row" method="post" action="{{route('robot.store')}}" enctype="multipart/form-data">
 			{{csrf_field()}} {{-- Token de protection formulaire CSRF (??) --}}
+
 			<div class="col s6">
 				<div class='input-field'>
 					<input id="name" name="name" type="text" value="{{old('name')? old('name') : ''}}">

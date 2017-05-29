@@ -2,10 +2,10 @@
 
 namespace App\Http\Controllers\Admin;
 
+use File;
+use App\Tag;
 use App\Robot;
 use App\Category;
-use App\Tag;
-use File;
 use Illuminate\Http\Request;
 use App\Http\Requests\RobotRequest;
 use App\Http\Controllers\Controller;
@@ -26,7 +26,7 @@ class RobotController extends Controller
 	 */
 	public function index()
 	{   
-		$robots = Robot::orderBy('created_at', 'desc')->paginate(5);
+		$robots = Robot::orderBy('created_at', 'desc')->paginate(6);
 
 		return view('back.robot.index', compact('robots'));
 	}
@@ -38,6 +38,8 @@ class RobotController extends Controller
 	 */
 	public function create()
 	{   
+		$this->authorize('create', Robot::class);
+
 		$cats = Category::pluck('title', 'id');
 		$tags = Tag::pluck('name', 'id');
 		
@@ -54,6 +56,8 @@ class RobotController extends Controller
 	{  
 		$robot = Robot::create($request->all());
 		$robot->tags()->attach($request->tags);
+		$robot->user_id = $request->user()->id;
+		$robot->save();
 
 		# Traitement du fichier
 		if($request->hasFile('picture'))
@@ -89,9 +93,10 @@ class RobotController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function edit($id)
+	public function edit(Robot $robot)
 	{
-		$robot = Robot::findOrFail($id);
+		$this->authorize('update', $robot);
+
 		$cats  = Category::pluck('title', 'id');
 		$tags  = Tag::pluck('name', 'id');
 
@@ -105,14 +110,14 @@ class RobotController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(RobotRequest $request, $id)
+	public function update(RobotRequest $request, Robot $robot)
 	{	
 		if($request->hasFile('picture'))
 		{
 			dd('FILE' . $request->link);
 		}
 		dd('NO FILE');
-		$robot = Robot::find($id);
+
 		$robot->update($request->all());
 		$robot->tags()
 			  ->sync($request->tags); # ->sync() : fonction magique qui supprime/insère 
@@ -126,9 +131,10 @@ class RobotController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy($id)
-	{
-		$robot = Robot::find($id);
+	public function destroy(Robot $robot)
+	{	
+
+		$this->authorize('delete', $robot);
 
 		if( !empty($robot->link) && File::exists( public_path('img') . '/' . $robot->link ) )
 		{	
