@@ -16,11 +16,19 @@ class UserTableSeeder extends Seeder
                         'name' => 'admin',
                         'email' => 'admin@admin.fr',
                         'password' => bcrypt('secret'),
+                        'role' => 'administrator',
                 ],
                 [
                 		'name' => 'Yoan',
                 		'email' => 'martinezyoan@gmail.com',
                 		'password' => bcrypt('raclette'),
+                        'role' => 'administrator',
+                ],
+                [
+                        'name' => 'Monique',
+                        'email' => 'monique@monique.com',
+                        'password' => bcrypt('monique'),
+                        'role' => 'editor',
                 ],
         ]);
     }

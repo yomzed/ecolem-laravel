@@ -18,6 +18,11 @@ class Robot extends Model
 		return $this->belongsToMany(Tag::class);
 	}
 
+	public function user()
+	{
+		return $this->belongsTo(User::class);
+	}
+
 	public function setNameAttribute($value)
 	{
 		$this->attributes['name']= ucfirst($value);

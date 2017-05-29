@@ -24,6 +24,8 @@ class CreateRobotsTable extends Migration
             $table->enum('status', ['published', 'unpublished', 'draft'])->default('unpublished');
             $table->unsignedInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('SET NULL');
+            $table->unsignedInteger('user_id')->nullable();
+            $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL');
             $table->timestamps();
         });
     }

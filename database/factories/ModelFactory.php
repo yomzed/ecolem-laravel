@@ -47,6 +47,7 @@ $factory->define(App\Robot::class, function (Faker\Generator $faker) {
   	return [
       	    'name'         => $name,
             'category_id'  => rand(1, 7),
+            'user_id'      => rand(1, 3),
             'slug' 		   => str_slug($name),
             'description'  => $faker->paragraph(rand(2, 4)),
             'published_at' => $faker->dateTime(),

@@ -9,6 +9,11 @@ class User extends Authenticatable
 {
     use Notifiable;
 
+    public function robots()
+    {
+        return $this->hasMany(Robot::class);
+    }
+
     /**
      * The attributes that are mass assignable.
      *
