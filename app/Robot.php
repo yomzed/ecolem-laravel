@@ -44,4 +44,9 @@ class Robot extends Model
 
 		return false;
 	}
+
+	public function scopePublished($query)
+	{
+		return $query->count('status', 'published');
+	}
 }

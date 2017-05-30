@@ -2,16 +2,15 @@
 
 namespace App\Http\Controllers;
 
+use App\Tag;
 use App\Robot;
 use App\Category;
-use App\Tag;
 use Illuminate\Http\Request;
 
 class FrontController extends Controller
 {
     public function index() 
-    {
-
+    {   
     	$robots = Robot::paginate(5); # SELECT * FROM robots
     	$cat = Category::all();
 

@@ -17,8 +17,9 @@
 
 
 @section('content')
+@inject('stats', 'App\Services\StatRobot')
 
-	<h3>Liste des robots</h3>
+	<h3>Liste des robots <small><em>{{ $stats->count() }} publiés</em></small></h3>
 
 	@foreach($robots as $robot)
 		<div class='card'>

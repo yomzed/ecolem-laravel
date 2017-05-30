@@ -41,7 +41,7 @@
 			{{csrf_field()}} {{-- Token de protection formulaire CSRF (??) --}}
 
 			<div class="row">
-				<h2 class="col s8 deep-orange-text text-darken-2">Connexion</h2>
+				<h2 class="col s8 deep-orange-text text-darken-2">Connection</h2>
 
 				<div class="input-field col s8">
 					<input id="email" type="text" name="email" class="validate @if($errors->has('email')) invalid @endif" value="{{old('email')? old('email') : ''}}">
@@ -62,7 +62,7 @@
 
 
 				<div class="input-field col s8">
-					<button class="btn waves-effect waves-light deep-orange darken-2" type="submit" name="action">Se connecter
+					<button class="btn waves-effect waves-light deep-orange darken-2" type="submit" name="action">Login
 						<i class="material-icons right">send</i>
 					</button>
 					<input {{old('remember')? 'checked' : ''}} id="rememberMe" type="checkbox" name="rememberMe" value="rememberMe" class="validate">

@@ -32,3 +32,35 @@ Route::group(['middleware' => 'auth'], function() {
 	Route::resource('admin/robot', 'Admin\RobotController');
 });
 
+class A {
+
+}
+
+class B {
+
+	public function __construct(A $a)
+	{
+		$this->a = $a;
+	}
+
+	public function message()
+	{
+		return 'Hello world';
+	}
+}
+
+class Student {
+
+	protected $ip;
+
+	public function __construct(string $ip)
+	{
+		$this->ip = $ip;
+		$this->id = uniqid('', true);
+	}
+}
+
+app()->bind('Student', function($app) {
+
+	return new Student ($app->make('request')->getClientIp());
+});
