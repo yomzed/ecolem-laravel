@@ -5,19 +5,23 @@ namespace App\Http\Controllers;
 use App\Tag;
 use App\Robot;
 use App\Category;
+use App\CacheInterface;
 use Illuminate\Http\Request;
-use Illuminate\Support\Facades\Cache;
 
 class FrontController extends Controller
 {
-    public function index(Request $request) 
-    {   
-        if(Cache::has('robots' . $request->page)) {
-            $robots = Cache::get('robots' . $request->page);
+    public function index(CacheInterface $cache) 
+    {
+        $key = (request()->page == 1) ? 'robots' : 'robots' . request()->page;
+
+        if($cache->has($key))
+        {
+            $robots = $cache->get($key);
         }
-        else {
+        else
+        {
             $robots = Robot::published()->paginate(5);
-            Cache::put('robots' . $request->page, $robots, \Carbon\Carbon::now()->addMinutes(5));
+            $cache->set($key, $robots);
         }
     	
     	$cat = Category::withCount('robots')->get();

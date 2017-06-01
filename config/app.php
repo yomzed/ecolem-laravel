@@ -177,6 +177,7 @@ return [
         App\Providers\EventServiceProvider::class,
         App\Providers\RouteServiceProvider::class,
         App\Providers\StatsServiceProvider::class,
+        App\Providers\CacheServiceProvider::class,
 
 
         Barryvdh\Debugbar\ServiceProvider::class,
