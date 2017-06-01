@@ -8,7 +8,7 @@
 		@foreach($tags as $uTag)
 				<a class='collection-item deep-orange-text text-darken-2 {{Request::is(Request::segment(1).'/'.$uTag->id) ? 'active' : ''}}' href='/tag/{{$uTag->id}}'>
 					{{$uTag->name}}
-					<span class='new badge deep-orange darken-2' data-badge-caption='bots'>{{$uTag->robots->count()}}</span>
+					<span class='new badge deep-orange darken-2' data-badge-caption='bots'>{{$uTag->robots_count}}</span>
 				</a>
 		@endforeach
 	</div>
@@ -19,7 +19,7 @@
 		Robots with tag "{{ $tag->name }}"
 	</h3>
 	
-	@foreach($robots as $robot)
+	@foreach($tag->robots as $robot)
 		
 		<div class='card'>
 			<div class='card-image waves-effect waves-block waves-light'>

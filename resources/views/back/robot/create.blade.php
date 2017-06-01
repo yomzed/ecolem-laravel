@@ -13,7 +13,15 @@
      border-bottom: 1px solid #e64a19;
      box-shadow: 0 1px 0 0 #e64a19;
    }
-
+	/* label focus color */
+   .input-field input[type='number']:focus + label, .input-field select:focus + label, textarea.materialize-textarea:focus:not([readonly]) + label {
+     color: #e64a19;
+   }
+   /* label underline focus color */
+   .input-field input[type='number']:focus, .input-field select:focus, textarea.materialize-textarea:focus:not([readonly]) {
+     border-bottom: 1px solid #e64a19;
+     box-shadow: 0 1px 0 0 #e64a19;
+   }
    .dropdown-content li>a, .dropdown-content li>span {
    		color: #e64a19;
    }
@@ -83,6 +91,10 @@
 						<option value="draft" @if (old('status') === 'draft') selected @endif>Draft</option>
 					</select>
 					<label>Status</label>
+				</div>
+				<div class="input-field">
+					<input name='power' type='number' value='{{old('power')? old('power') : ''}}'>
+					<label>Power</label>
 				</div>
 				<label>Image</label>
 				<div class="file-field input-field">

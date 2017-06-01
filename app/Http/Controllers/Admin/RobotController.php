@@ -26,7 +26,7 @@ class RobotController extends Controller
 	 */
 	public function index()
 	{   
-		$robots = Robot::orderBy('created_at', 'desc')->paginate(6);
+		$robots = Robot::with('tags', 'category', 'user')->orderBy('created_at', 'desc')->paginate(6);
 
 		return view('back.robot.index', compact('robots'));
 	}
@@ -112,11 +112,11 @@ class RobotController extends Controller
 	 */
 	public function update(RobotRequest $request, Robot $robot)
 	{	
-		if($request->hasFile('picture'))
-		{
-			dd('FILE' . $request->link);
-		}
-		dd('NO FILE');
+		// if($request->hasFile('picture'))
+		// {
+		// 	dd('FILE' . $request->link);
+		// }
+		// dd('NO FILE');
 
 		$robot->update($request->all());
 		$robot->tags()

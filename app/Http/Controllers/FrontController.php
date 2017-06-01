@@ -6,41 +6,45 @@ use App\Tag;
 use App\Robot;
 use App\Category;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\Cache;
 
 class FrontController extends Controller
 {
-    public function index() 
+    public function index(Request $request) 
     {   
-    	$robots = Robot::paginate(5); # SELECT * FROM robots
-    	$cat = Category::all();
+        if(Cache::has('robots' . $request->page)) {
+            $robots = Cache::get('robots' . $request->page);
+        }
+        else {
+            $robots = Robot::published()->paginate(5);
+            Cache::put('robots' . $request->page, $robots, \Carbon\Carbon::now()->addMinutes(5));
+        }
+    	
+    	$cat = Category::withCount('robots')->get();
 
-    	return view('front.home', ['robots' => $robots, 'cat' => $cat]);
+    	return view('front.home', compact('robots', 'cat'));
     }
 
-    public function showRobot($id)
+    public function showRobot(int $id)
     {
     	$robot = Robot::find($id);
-    	$tags  = $robot->tags;
 
-    	return view('front.single', ['robot' => $robot, 'tags' => $tags]);
+    	return view('front.single', compact('robot'));
     }
 
-    public function showRobotByCat($id)
+    public function showRobotByCat(int $id)
     {	
-    	$cats = Category::all();
+    	$cats = Category::withCount('robots')->get();
     	$cat = Category::find($id);
-    	$robots = $cat->robots;
 
-    	return view('front.category', ['cat' => $cat, 'robots' => $robots, 'cats' => $cats]);
+    	return view('front.category', compact('cat', 'cats'));
     }
 
     public function showRobotByTag(int $id)
     {
-        $robots = Tag::findOrFail($id)->robots;
-        $cats = Category::all();
         $tag = Tag::find($id);
-        $tags = Tag::all();
+        $tags = Tag::withCount('robots')->get();
     
-        return view('front.tag', compact('robots', 'tag', 'cats', 'tags'));
+        return view('front.tag', compact('robots', 'tag', 'tags'));
     }
 }

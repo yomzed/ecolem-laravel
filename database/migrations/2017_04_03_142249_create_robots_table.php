@@ -20,12 +20,14 @@ class CreateRobotsTable extends Migration
             $table->string('slug', 100)->default('');
             $table->text('description')->nullable();
             $table->string('link', 100)->default('');
-            $table->dateTime('published_at')->nullable();
+            $table->string('type', 100)->default('DDR1');
+            $table->tinyInteger('power')->default(0);
             $table->enum('status', ['published', 'unpublished', 'draft'])->default('unpublished');
             $table->unsignedInteger('category_id')->nullable();
             $table->foreign('category_id')->references('id')->on('categories')->onDelete('SET NULL');
             $table->unsignedInteger('user_id')->nullable();
             $table->foreign('user_id')->references('id')->on('users')->onDelete('SET NULL');
+            $table->dateTime('published_at')->nullable();
             $table->timestamps();
         });
     }

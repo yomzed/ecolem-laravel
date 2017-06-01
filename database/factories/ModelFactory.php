@@ -42,7 +42,15 @@ $factory->define(App\Robot::class, function (Faker\Generator $faker) {
             'EvE'
     ];
 
+    $types = [
+            'DDR1',
+            'DDR2',
+            'DDR3',
+            'DDR4',
+    ];
+
     $name = $names[array_rand($names)];
+    $type = $types[array_rand($types)];
   
   	return [
       	    'name'         => $name,
@@ -52,6 +60,8 @@ $factory->define(App\Robot::class, function (Faker\Generator $faker) {
             'description'  => $faker->paragraph(rand(2, 4)),
             'published_at' => $faker->dateTime(),
             'status'       => 'published',
+            'power'        => rand(0, 100),
+            'type'         => $type,
       ];
   
 });

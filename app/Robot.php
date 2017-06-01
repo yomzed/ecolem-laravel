@@ -45,8 +45,21 @@ class Robot extends Model
 		return false;
 	}
 
-	public function scopePublished($query)
+	public function scopeCountPublished($query)
 	{
-		return $query->count('status', 'published');
+		return $query->where('status', 'published')->count();
+	}
+
+	public function scopePublished($query, $status = 'published')
+	{
+		return $query->where('status', $status)
+					 ->orderBy('published_at', env('ORDER_ROBOT', 'DESC'))
+					 ->orderBy('created_at', env('ORDER_ROBOT', 'DESC'));
+	}
+
+	public function scopePower($query, $power = 50)
+	{
+		return $query->where('power', '<', $power)
+					 ->count();
 	}
 }

@@ -29,7 +29,7 @@
 	</p>
 	
 	<b>Tags: </b>
-	@foreach($tags as $tag)
+	@foreach($robot->tags as $tag)
 		<div class='chip'>
 			<a href="/tag/{{ $tag->id }}">{{ $tag->name }}</a>
 		</div>

@@ -13,6 +13,6 @@ class StatRobot {
 
 	public function count()
 	{
-		return $this->robot->published();
+		return $this->robot->countPublished();
 	}
 }

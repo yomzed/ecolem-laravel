@@ -8,7 +8,7 @@
 		@foreach($cats as $category)
 				<a class='collection-item deep-orange-text text-darken-2 {{Request::is(Request::segment(1).'/'.$category->id) ? 'active' : ''}}' href='/category/{{$category->id}}'>
 					{{$category->title}}
-					<span class='new badge deep-orange darken-2' data-badge-caption='bots'>{{$category->robots->count()}}</span>
+					<span class='new badge deep-orange darken-2' data-badge-caption='bots'>{{$category->robots_count}}</span>
 				</a>
 		@endforeach
 	</div>
@@ -19,7 +19,7 @@
 		Robots in category "{{ $cat->title }}"
 	</h3>
 	
-	@foreach($robots as $robot)
+	@foreach($cat->robots as $robot)
 		
 		<div class='card'>
 			<div class='card-image waves-effect waves-block waves-light'>
