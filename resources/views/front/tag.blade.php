@@ -34,6 +34,11 @@
         			<div class="card-content">
         				<h5 class="header">{{ $robot->name }}</h5>
           				<p>{{ $robot->description }}</p>
+          				<br>
+          				<b>{{ $robot->power }}% power</b>
+                        <div class="progress">
+                            <div class="determinate" style="width: {{ $robot->power }}%"></div>
+                        </div>
         			</div>
         			<div class="card-action">
           				<a href="/robot/{{ $robot->id }}" class="btn-floating waves-effect waves-light red"><i class="material-icons">search</i></a>

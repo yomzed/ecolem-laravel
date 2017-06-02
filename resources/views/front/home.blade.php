@@ -29,15 +29,23 @@
    			<div class="card horizontal">
       			<div class="card-image">
       				<a href="/robot/{{ $robot->id }}" class="waves-effect waves-light">
-                @if(!empty($robot->link))
+
+                    @if(!empty($robot->link))
+
         				  <img src="{{ url('img', $robot->link) }}">
-                @endif
+
+                    @endif
+
         			</a>
       			</div>
       			<div class="card-stacked">
         			<div class="card-content">
         				<h5 class="header">{{ $robot->name }}</h5>
-          				<p>{{ $robot->description }}</p>
+          				<p>{{ $robot->description }}</p><br>
+                        <b>{{ $robot->power }}% power</b>
+                        <div class="progress">
+                            <div class="determinate" style="width: {{ $robot->power }}%"></div>
+                        </div>
         			</div>
         			<div class="card-action">
           				<a href="/robot/{{ $robot->id }}" class="btn-floating waves-effect waves-light red"><i class="material-icons">search</i></a>

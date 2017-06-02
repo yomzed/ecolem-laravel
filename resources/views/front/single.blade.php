@@ -30,6 +30,10 @@
 			<p>
 				{{ $robot->description }}
 			</p>
+			<b>{{ $robot->power }}% power</b>
+         	<div class="progress">
+               <div class="determinate" style="width: {{ $robot->power }}%"></div>
+            </div>
 		</div>
 
 	</div>
