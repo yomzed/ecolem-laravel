@@ -22,8 +22,8 @@
 	@foreach($cat->robots as $robot)
 	
 		<div class="col s4">
-			<a href='/robot/{{ $robot->id }}'>
-				<img class="circle responsive-img light-blue darken-1" src='{{ url('img', $robot->link) }}'>
+			<a href='/robot/{{ $robot->id }}' class="waves-effect waves-light">
+				<img class="responsive-img light-blue darken-1" src='{{ url('img', $robot->link) }}'>
 			</a>
 		</div>
 

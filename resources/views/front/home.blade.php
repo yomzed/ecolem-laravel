@@ -17,27 +17,33 @@
 
 
 @section('content')
+
 @inject('stats', 'App\Services\StatRobot')
 
 	<h3>Liste des robots <small><em>{{ $stats->count() }} publiés</em></small></h3>
 	{{$robots->links()}}
 	
 	@foreach($robots as $robot)
-		<div class='card-panel'>
-			<div class="row valign-wrapper">
-			<div class="col s2">
-				<img class="circle reponsive-img light-blue darken-2" src="{{ url('img', $robot->link) }}" style="max-height: 100px">
-				
-			</div>
-			<div class="col s9 offset-s1">
-				
-				
-					<span class='card-title'>{{ $robot->name }}</span>
-					<a href="/robot/{{ $robot->id }}" class="pull-right btn-floating waves-effect waves-light red"><i class="material-icons">search</i></a>
-					<p>{{ $robot->description }}</p>
-			</div>
-			</div>
-		</div>	
+
+		<div class="col s12">
+   			<div class="card horizontal">
+      			<div class="card-image">
+      				<a href="/robot/{{ $robot->id }}" class="waves-effect waves-light">
+        				<img src="{{ url('img', $robot->link) }}">
+        			</a>
+      			</div>
+      			<div class="card-stacked">
+        			<div class="card-content">
+        				<h5 class="header">{{ $robot->name }}</h5>
+          				<p>{{ $robot->description }}</p>
+        			</div>
+        			<div class="card-action">
+          				<a href="/robot/{{ $robot->id }}" class="btn-floating waves-effect waves-light red"><i class="material-icons">search</i></a>
+        			</div>
+      			</div>
+    		</div>
+  		</div>
+  		
 	@endforeach
 
 	{{$robots->links()}}
