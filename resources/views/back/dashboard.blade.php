@@ -12,7 +12,7 @@
 
 <section class='section white'>
 	<div class='container' style="width: 85%">
-		<p>Test</p>
+		<p>Dashboard Front Page</p>
 	</div>
 </section>
 

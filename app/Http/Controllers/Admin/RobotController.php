@@ -6,6 +6,7 @@ use File;
 use App\Tag;
 use App\Robot;
 use App\Category;
+use App\CacheInterface;
 use Illuminate\Http\Request;
 use App\Http\Requests\RobotRequest;
 use App\Http\Controllers\Controller;
@@ -24,9 +25,19 @@ class RobotController extends Controller
 	 *
 	 * @return \Illuminate\Http\Response
 	 */
-	public function index()
+	public function index(CacheInterface $cache)
 	{   
-		$robots = Robot::with('tags', 'category', 'user')->orderBy('created_at', 'desc')->paginate(6);
+		$key = (request()->page == 1) ? 'bo-robots' : 'bo-robots' . request()->page;
+
+		if($cache->has($key))
+        {
+            $robots = $cache->get($key);
+        }
+        else
+        {
+            $robots = Robot::with('tags', 'category', 'user')->orderBy('created_at', 'desc')->paginate(6);
+            $cache->set($key, $robots);
+        }
 
 		return view('back.robot.index', compact('robots'));
 	}
