@@ -63,12 +63,14 @@ class RobotController extends Controller
 	 * @param  \Illuminate\Http\Request  $request
 	 * @return \Illuminate\Http\Response
 	 */
-	public function store(RobotRequest $request)
+	public function store(RobotRequest $request, CacheInterface $cache)
 	{  
 		$robot = Robot::create($request->all());
 		$robot->tags()->attach($request->tags);
 		$robot->user_id = $request->user()->id;
 		$robot->save();
+
+		$cache->flush();
 
 		# Traitement du fichier
 		if($request->hasFile('picture'))
@@ -83,6 +85,7 @@ class RobotController extends Controller
 			# Déplacement du fichier dans le dossier public
 			$file->storeAs( 'img',  $robot->link );
 		}
+
 
 		return redirect()->route('robot.index')->with('message', sprintf('%s has been created', $robot->name));
 	}
@@ -121,17 +124,42 @@ class RobotController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function update(RobotRequest $request, Robot $robot)
+	public function update(RobotRequest $request, Robot $robot, CacheInterface $cache)
 	{	
-		// if($request->hasFile('picture'))
-		// {
-		// 	dd('FILE' . $request->link);
-		// }
-		// dd('NO FILE');
+		# Update de l'image
+		if($request->hasFile('picture'))
+		{	
+			# Suppression de l'ancienne image si existante
+			if( !empty($robot->link) && File::exists( public_path('img') . '/' . $robot->link ) )
+				File::delete( public_path('img') . '/' . $robot->link );
+
+			$file = $request->picture; 
+			$ext  = $file->extension();
+
+			# Génération du nom et sauvegarde dans la BDD
+			$robot->link = str_random(12) . '.' . $ext;
+			$robot->save();
+
+
+
+			# Déplacement du fichier dans le dossier public
+			$file->storeAs( 'img',  $robot->link );
+
+		}
+
+		# Suppression de l'image
+		if( empty($request->file_name) && !empty($robot->link) && File::exists( public_path('img') . '/' . $robot->link ) ) 
+		{
+			File::delete( public_path('img') . '/' . $robot->link );
+			$robot->link = '';
+			$robot->save();
+		}
 
 		$robot->update($request->all());
 		$robot->tags()
-			  ->sync($request->tags); # ->sync() : fonction magique qui supprime/insère 
+			  ->sync($request->tags); # ->sync() : fonction magique qui supprime/insère
+
+		$cache->flush();
 
 		return redirect()->route('robot.index')->with('message', sprintf('%s has been updated', $robot->name));
 	}
@@ -142,7 +170,7 @@ class RobotController extends Controller
 	 * @param  int  $id
 	 * @return \Illuminate\Http\Response
 	 */
-	public function destroy(Robot $robot)
+	public function destroy(Robot $robot, CacheInterface $cache)
 	{	
 
 		$this->authorize('delete', $robot);
@@ -154,6 +182,8 @@ class RobotController extends Controller
 
 		$name = $robot->name;
 		$robot->delete();
+
+		$cache->flush();
 
 		return redirect()->route('robot.index')->with('message', sprintf('Bot %s successfully destroyed', $name));
 	}

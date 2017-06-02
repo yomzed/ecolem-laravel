@@ -50,4 +50,9 @@ class CacheRedis implements CacheInterface
 	{
 		return Cache::store('redis')->has($key);
 	}
+
+	public function flush()
+	{
+		Cache::store('redis')->flush();
+	}
 }

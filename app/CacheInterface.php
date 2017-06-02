@@ -15,4 +15,6 @@ interface CacheInterface
 	public function reset(string $key);
 
 	public function has(string $key);
+
+	public function flush();
 }

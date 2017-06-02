@@ -104,12 +104,24 @@
 						<input type="file" name="picture" accept="image/*">
 					</div>
 					<div class="file-path-wrapper">
-						<input class="file-path validate" type="text" placeholder="Upload a picture for your robot" value="{{$robot->link}}">
+						<input class="file-path validate" id="file_name" name="file_name" type="text" placeholder="Upload a picture for your robot" value="{{$robot->link}}">
+
+						@if(!empty($robot->link))
+
+							<a onclick="$('#file_name').val('')" class="pull-right deep-orange-text text-darken-2 valign-wrapper" style="cursor:pointer">
+								Remove the image <i class="material-icons">close</i>
+							</a>
+
+						@endif
+
 					</div>
 				</div>
 			</div>
+
 			<div class='col s12 center-align'>
-				<button type="submit" class="waves-effect waves-light btn deep-orange darken-2">Submit <i class="material-icons right">send</i></button>
+				<button type="submit" class="waves-effect waves-light btn deep-orange darken-2">
+					Submit <i class="material-icons right">send</i>
+				</button>
 			</div>
 			
 		</form>
