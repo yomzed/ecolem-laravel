@@ -23,14 +23,19 @@
 	{{$robots->links()}}
 	
 	@foreach($robots as $robot)
-		<div class='card'>
-			<div class="card-image">
-				<img class="activator" src="{{ url('img', $robot->link) }}">
-				<span class='card-title'>{{ $robot->name }}</span>
-				<a href="/robot/{{ $robot->id }}" class="btn-floating halfway-fab waves-effect waves-light red"><i class="material-icons">search</i></a>
+		<div class='card-panel'>
+			<div class="row valign-wrapper">
+			<div class="col s2">
+				<img class="circle reponsive-img light-blue darken-2" src="{{ url('img', $robot->link) }}" style="max-height: 100px">
+				
 			</div>
-			<div class="card-content">
-				<p>{{ $robot->description }}</p>
+			<div class="col s9 offset-s1">
+				
+				
+					<span class='card-title'>{{ $robot->name }}</span>
+					<a href="/robot/{{ $robot->id }}" class="pull-right btn-floating waves-effect waves-light red"><i class="material-icons">search</i></a>
+					<p>{{ $robot->description }}</p>
+			</div>
 			</div>
 		</div>	
 	@endforeach

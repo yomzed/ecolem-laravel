@@ -17,17 +17,21 @@
 			<a href="/category/{{ $robot->category->id }}">{{ $robot->category->title }}</a>
 		</small>
 	</h3>
-
-	<div class='card'>
-		<div class='card-image'>
-			<img class='responsive-img' src='{{ url('img', $robot->link) }}'>
+	
+	<div class="row valign-wrapper">
+		
+		<div class="col s4">
+			<img class='circle responsive-img light-blue darken-2' src='{{ url('img', $robot->link) }}'>
 		</div>
+		
+		<div class="col s7 offset-s1">
+			<p>
+				{{ $robot->description }}
+			</p>
+		</div>
+
 	</div>
 
-	<p>
-		{{ $robot->description }}
-	</p>
-	
 	<b>Tags: </b>
 	@foreach($robot->tags as $tag)
 		<div class='chip'>

@@ -15,7 +15,7 @@ class RobotTableSeeder extends Seeder
         $files   = File::allFiles($uploads);
         foreach($files as $file) File::delete($file);
 
-        factory(App\Robot::class, 30)->create()->each(function($robot) use($uploads) {
+        factory(App\Robot::class, 15)->create()->each(function($robot) use($uploads) {
 
             $nbTags = App\Tag::all()->count();
 
@@ -28,8 +28,8 @@ class RobotTableSeeder extends Seeder
 
         	$robot->tags()->attach($index);
 
-            $uri   = str_random(12) . '.jpg';
-            $image = file_get_contents('http://lorempicsum.com/futurama/600/300/' . rand(1,9));
+            $uri   = str_random(12) . '.png';
+            $image = file_get_contents('https://robohash.org/' . $uri);
 
             File::put($uploads . DIRECTORY_SEPARATOR . $uri, $image);
 

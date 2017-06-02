@@ -20,17 +20,14 @@
 	</h3>
 	
 	@foreach($cat->robots as $robot)
-		
-		<div class='card'>
-			<div class='card-image waves-effect waves-block waves-light'>
-				<a href='/robot/{{ $robot->id }}'>
-					<img src='{{ url('img', $robot->link) }}'>
-					<span class='card-title'>{{ $robot->name }}</span>
-				</a>
-			</div>
+	
+		<div class="col s4">
+			<a href='/robot/{{ $robot->id }}'>
+				<img class="circle responsive-img light-blue darken-1" src='{{ url('img', $robot->link) }}'>
+			</a>
 		</div>
 
 	@endforeach
-	
+
 
 @endsection
