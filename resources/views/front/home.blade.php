@@ -29,7 +29,9 @@
    			<div class="card horizontal">
       			<div class="card-image">
       				<a href="/robot/{{ $robot->id }}" class="waves-effect waves-light">
-        				<img src="{{ url('img', $robot->link) }}">
+                @if(!empty($robot->link))
+        				  <img src="{{ url('img', $robot->link) }}">
+                @endif
         			</a>
       			</div>
       			<div class="card-stacked">

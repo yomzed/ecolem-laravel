@@ -20,12 +20,30 @@
 	</h3>
 	
 	@foreach($cat->robots as $robot)
-	
-		<div class="col s4">
-			<a href='/robot/{{ $robot->id }}' class="waves-effect waves-light">
-				<img class="responsive-img light-blue darken-1" src='{{ url('img', $robot->link) }}'>
-			</a>
-		</div>
+		
+		
+		<div class="col s12">
+   			<div class="card horizontal">
+      			<div class="card-image">
+      				<a href="/robot/{{ $robot->id }}" class="waves-effect waves-light">
+                @if(!empty($robot->link))
+        				  <img src="{{ url('img', $robot->link) }}">
+                @endif
+        			</a>
+      			</div>
+      			<div class="card-stacked">
+        			<div class="card-content">
+        				<h5 class="header">{{ $robot->name }}</h5>
+          				<p>{{ $robot->description }}</p>
+        			</div>
+        			<div class="card-action">
+          				<a href="/robot/{{ $robot->id }}" class="btn-floating waves-effect waves-light red"><i class="material-icons">search</i></a>
+        			</div>
+      			</div>
+    		</div>
+  		</div>
+		
+
 
 	@endforeach
 

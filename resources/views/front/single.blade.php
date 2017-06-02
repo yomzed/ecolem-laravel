@@ -20,9 +20,11 @@
 	
 	<div class="row valign-wrapper">
 		
-		<div class="col s6">
-			<img class='responsive-img light-blue darken-2' src='{{ url('img', $robot->link) }}'>
-		</div>
+		@if(!empty($robot->link))
+			<div class="col s6">
+				<img class='responsive-img light-blue darken-2' src='{{ url('img', $robot->link) }}'>
+			</div>
+		@endif
 		
 		<div class="col s5 offset-s1">
 			<p>
