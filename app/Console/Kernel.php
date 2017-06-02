@@ -14,7 +14,7 @@ class Kernel extends ConsoleKernel
      */
     protected $commands = [
         Commands\SwitchEnvCommand::class,
-        Commands\MakeEnvCommand::class
+        Commands\MakeEnvCommand::class,
     ];
 
     /**
