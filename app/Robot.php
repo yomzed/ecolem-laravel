@@ -6,7 +6,7 @@ use Illuminate\Database\Eloquent\Model;
 
 class Robot extends Model
 {	
-	protected $fillable = ['name', 'description', 'category_id', 'status', 'link'];
+	protected $fillable = ['name', 'description', 'category_id', 'status', 'link', 'power'];
 
 	public function category()
 	{
